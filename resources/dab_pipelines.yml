@@ -1,0 +1,16 @@
+# A job running SQL queries on a SQL warehouse
+resources:
+  pipelines:
+    pipeline_test:
+      name: test
+      libraries:
+        - notebook:
+            path: /Shared/dlt_demo/bronze
+        - notebook:
+            path: /Shared/dlt_demo/silver
+        - notebook:
+            path: /Shared/dlt_demo/gold
+      photon: true
+      catalog: products
+      serverless: true
+      budget_policy_id: 84a3d69a-ae50-4cc8-a87b-7bef3f1067e6
