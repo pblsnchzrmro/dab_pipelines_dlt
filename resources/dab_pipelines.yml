@@ -1,4 +1,3 @@
-# A job running SQL queries on a SQL warehouse
 resources:
   pipelines:
     pipeline_test:
@@ -10,6 +9,7 @@ resources:
             path: /Shared/dlt_demo/silver
         - notebook:
             path: /Shared/dlt_demo/gold
+      schema: sales
       photon: true
       catalog: products
       serverless: true
