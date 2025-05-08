@@ -13,4 +13,3 @@ resources:
       photon: true
       catalog: products
       serverless: true
-      budget_policy_id: 84a3d69a-ae50-4cc8-a87b-7bef3f1067e6
