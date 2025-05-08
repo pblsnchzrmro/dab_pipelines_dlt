@@ -29,10 +29,8 @@ jobs:
 
       - name: Validate bundle for dev
         run: |
-          export HOME=/root
           databricks bundle validate -t dev
 
       - name: Deploy bundle to dev
         run: |
-          export HOME=/root
           databricks bundle deploy -t dev
