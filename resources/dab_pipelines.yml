@@ -4,11 +4,11 @@ resources:
       name: test
       libraries:
         - notebook:
-            path: /Shared/dlt_demo/bronze
+            path: ../src/test/bronze
         - notebook:
-            path: /Shared/dlt_demo/silver
+            path: ../src/test/silver
         - notebook:
-            path: /Shared/dlt_demo/gold
+            path: ../src/test/gold
       schema: sales
       photon: true
       catalog: products
