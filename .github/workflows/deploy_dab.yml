@@ -1,28 +1,22 @@
 name: Deploy DAB
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - dev
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'dev' && 'stg' || 'dev' }}
+    environment: ${{ github.ref_name == 'main' && 'pro' || 'stg' }}
     env:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
       DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
-      RAW_ENV: ${{ vars.ENV }}
-      GIT_BRANCH: ${{ github.ref_name }}
+      ENV: ${{ vars.ENV }}
 
     steps:
-      - name: Set ENV from branch if not defined
-        id: set-env
-        run: |
-          echo "ENV=${RAW_ENV:-$([[ $GIT_BRANCH == 'dev' ]] && echo 'stg' || echo 'dev')}" >> $GITHUB_ENV
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
