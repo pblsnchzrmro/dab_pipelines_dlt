@@ -26,6 +26,7 @@ targets:
     default: true
     workspace:
       host: https://adb-3842051123482980.0.azuredatabricks.net
+      root_path: /Worspace/test
     variables:
       warehouse_id: 47cfcb52ae2db044
       catalog: demo_tribu
