@@ -22,29 +22,21 @@ jobs:
 
       - name: Install Databricks CLI
         run: |
-          echo "::group::Installing Databricks CLI"
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
-          echo "::endgroup::"
 
-      - name: Configure Databricks authentication
+      - name: Create ~/.databrickscfg
         run: |
-          echo "::group::Creating ~/.databrickscfg"
           rm -f ~/.databrickscfg
           echo "[DEFAULT]" > ~/.databrickscfg
           echo "host = $DATABRICKS_HOST" >> ~/.databrickscfg
           echo "auth_type = client" >> ~/.databrickscfg
           echo "client_id = $DATABRICKS_CLIENT_ID" >> ~/.databrickscfg
           echo "client_secret = $DATABRICKS_CLIENT_SECRET" >> ~/.databrickscfg
-          echo "::endgroup::"
 
-      - name: Validate Databricks bundle
+      - name: Validate bundle
         run: |
-          echo "::group::Validating bundle for target: $ENV"
           databricks bundle validate -t $ENV
-          echo "::endgroup::"
 
-      - name: Deploy Databricks bundle
+      - name: Deploy bundle
         run: |
-          echo "::group::Deploying bundle to target: $ENV"
           databricks bundle deploy -t $ENV
-          echo "::endgroup::"
