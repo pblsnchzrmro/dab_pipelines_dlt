@@ -14,7 +14,6 @@ jobs:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
       DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
-      ENV: ${{ vars.ENV }}
 
     steps:
       - name: Checkout repository
@@ -32,6 +31,9 @@ jobs:
           echo "auth_type = client" >> ~/.databrickscfg
           echo "client_id = $DATABRICKS_CLIENT_ID" >> ~/.databrickscfg
           echo "client_secret = $DATABRICKS_CLIENT_SECRET" >> ~/.databrickscfg
+
+      - name: Export ENV variable from environment
+        run: echo "ENV=${{ vars.ENV }}" >> $GITHUB_ENV
 
       - name: Validate bundle
         run: |
