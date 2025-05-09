@@ -4,11 +4,11 @@ resources:
       name: test
       libraries:
         - notebook:
-            path: ../src/test/bronze
+            path: ../src/test/bronze.ipynb
         - notebook:
-            path: ../src/test/silver
+            path: ../src/test/silver.ipynb
         - notebook:
-            path: ../src/test/gold
+            path: ../src/test/gold.ipynb
       schema: sales
       photon: true
       catalog: products
