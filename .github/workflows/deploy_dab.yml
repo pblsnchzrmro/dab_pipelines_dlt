@@ -1,18 +1,28 @@
-name: Deploy DAB to dev
+name: Deploy DAB
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - dev
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ github.ref_name == 'dev' && 'stg' || 'dev' }}
     env:
       DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
       DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
       DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+      RAW_ENV: ${{ vars.ENV }}
+      GIT_BRANCH: ${{ github.ref_name }}
 
     steps:
+      - name: Set ENV from branch if not defined
+        id: set-env
+        run: |
+          echo "ENV=${RAW_ENV:-$([[ $GIT_BRANCH == 'dev' ]] && echo 'stg' || echo 'dev')}" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -29,10 +39,10 @@ jobs:
           echo "client_id = $DATABRICKS_CLIENT_ID" >> ~/.databrickscfg
           echo "client_secret = $DATABRICKS_CLIENT_SECRET" >> ~/.databrickscfg
 
-      - name: Validate bundle for dev
+      - name: Validate bundle
         run: |
-          databricks bundle validate -t dev
+          databricks bundle validate -t $ENV
 
-      - name: Deploy bundle to dev
+      - name: Deploy bundle
         run: |
-          databricks bundle deploy -t dev
+          databricks bundle deploy -t $ENV
