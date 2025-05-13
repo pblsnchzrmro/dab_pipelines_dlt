@@ -2,7 +2,7 @@ resources:
   pipelines:
     pipeline_test:
       configuration:
-        env: dev
+        env: ${var.env}
       name: test
       libraries:
         - notebook:
