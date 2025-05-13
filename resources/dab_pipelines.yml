@@ -1,6 +1,8 @@
 resources:
   pipelines:
     pipeline_test:
+      configuration:
+        env: dev
       name: test
       libraries:
         - notebook:
